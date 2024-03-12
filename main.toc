@@ -1,0 +1,5 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Scopo}{2}{section.1}%
+\contentsline {section}{\numberline {2}Premesse teoriche}{2}{section.2}%
+\contentsline {section}{\numberline {3}Descrizione delle misure}{2}{section.3}%
