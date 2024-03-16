@@ -1,0 +1,19 @@
+Dati 12/03/2024   Misurazioni del set up 
+
+barra d'alluminio: 47.5 cm +- 0.1 cm
+
+raggio del cilindro d'ottone: 3.5
+
+ampiezza del pendolo calcolata in x: 11 cm
+
+lato della sezione della sbarra
+(0.835 +- 0.005) cm
+
+(0.825 +- 0.005) cm
+
+altezza sbarra (oltre il perno): 49.6 cm +- 0.1 cm
+centro di massa sbarra: 24.8 +- 0.1 cm
+
+cilindro di ottone:
+	raggio: 3.5
+	h: 1.225
