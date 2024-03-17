@@ -101,3 +101,32 @@ result = Oscillazione("./misurazioni/misurazione_controfase_t1.txt", "Grafico_os
 
 #print(f"Il periodo dell'oscillazione con smorzatore è {mu} +- {sigma_mu}")
 #print(f"La pulsazione con smorzatore sarà quindi {(2 * np.pi)/mu} +- {(2 * np.pi)/(mu ** 2) * sigma_mu}")
+theta = 731
+def modello(x, tau):
+    res = theta * (np.e ** (-((x-0.558)/tau)))
+    return(res)
+
+data = np.loadtxt("./misurazioni/misurazione_con_smorzatore_1.txt", unpack=True)
+osc = {"tA": [], "posA": [], "tB": [], "posB": []}
+osc["tA"] = data[0]
+osc["posA"] = data[1]
+osc["tB"] = data[2]
+osc["posB"] = data[3]
+print(np.where(osc["posB"] == 731))
+def err(y, index):
+    cs = CubicSpline(osc["tB"], osc["posB"])
+    _cs = cs.derivative(nu=1)
+    _err = _cs(osc["tB"][index])
+    return(_err)
+sigma = []
+for num in range(len(osc["posB"])):
+    sigma.append(err(osc["posB"][num], num))
+
+popt, pcov = curve_fit(modello, osc["tB"][10:], osc["posB"][10:])
+tau_hat = popt
+sigma_tau = np.sqrt(np.diag(pcov))
+plt.plot(osc["tB"][10:], osc["posB"][10:])
+x = np.linspace(0.558, 40+0.558, 700)
+plt.plot(x, modello(x, tau_hat))
+plt.show()
+print(f"{tau_hat} +- {sigma_tau}")
