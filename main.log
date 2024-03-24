@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.14)  16 MAR 2024 17:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.14)  24 MAR 2024 23:54
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1505,16 +1505,30 @@ File: unpxsyc.fd 2013/03/24 Fontinst v1.933 font definitions for U/npxsyc.
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
-
+ [2]
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 22.
+(Font)              size <5> substituted on input line 18.
 
 
 LaTeX Font Warning: Font shape `TS1/cmr/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 22.
+(Font)              size <5> substituted on input line 18.
 
-[2] (./main.aux)
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 54.
+See the caption package documentation for explanation.
+
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
+4.
+(c:/texlive/2021/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+Overfull \hbox (4.44334pt too wide) in paragraph at lines 37--63
+$[]$   $[]$ 
+ []
+
+[3] [4] (./main.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
@@ -1524,25 +1538,31 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 52376 strings out of 478278
- 1159352 string characters out of 5850546
- 2044873 words of memory out of 5000000
- 69955 multiletter control sequences out of 15000+600000
- 498728 words of font info for 101 fonts, out of 8000000 for 9000
+ 52427 strings out of 478278
+ 1160295 string characters out of 5850546
+ 2055899 words of memory out of 5000000
+ 69982 multiletter control sequences out of 15000+600000
+ 503138 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,6n,83p,737b,1344s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 89i,10n,83p,1506b,1344s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texl
 ive/2021/texmf-dist/fonts/type1/public/newpx/NewPXMI.pfb><c:/texlive/2021/texmf
--dist/fonts/type1/public/newpx/pxmiaX.pfb><c:/texlive/2021/texmf-dist/fonts/typ
-e1/public/cm-super/sfbx1000.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/
-cm-super/sfbx1440.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/s
-frm1000.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pf
-b><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb><c:/texl
-ive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on main.pdf (2 pages, 107513 bytes).
+-dist/fonts/type1/public/newpx/NewPXMI_gnu.pfb><c:/texlive/2021/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newpx/
+pxmiaX.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newpx/pxsys.pfb><c:/t
+exlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/202
+1/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2021/texmf-di
+st/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2021/texmf-dist/fonts/t
+ype1/public/cm-super/sfrm1200.pfb><c:/texlive/2021/texmf-dist/fonts/type1/publi
+c/cm-super/sfrm1728.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super
+/sfti1000.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1000.
+pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfxc1000.pfb><c:/te
+xlive/2021/texmf-dist/fonts/type1/public/newtx/txexs.pfb>
+Output written on main.pdf (4 pages, 200969 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
- 8 named destinations out of 1000 (max. 500000)
- 37 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 135 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
+ 16 named destinations out of 1000 (max. 500000)
+ 45 words of extra memory for PDF output out of 10000 (max. 10000000)
 
