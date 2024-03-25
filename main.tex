@@ -23,11 +23,20 @@ da cui possiamo ricavare, nell'ipotesi delle piccole oscillazioni attorno al pun
 	\omega_0 = \sqrt{\frac{mgd}{I}}
 \end{equation}
 dove $d$ rappresenta la distanza del perno dal centro di massa dell'oggetto, mentre $I$ il momento di inerzia del corpo. \\
-Nel caso delle oscillazioni accoppiate, esistono una serie di modi, detti \emph{normali}, con cui è possibile far oscillare il corpo: il primo modo consiste nel far partire i due pendoli con la stessa ampiezza spostandoli nello stesso \emph{verso} e lasciandoli andare nello stesso momento: in questo caso la molla, utilizzata per accoppiare le due oscillazioni, non sarà sollecitata e non andrà ad influenzare il moto dei due pendoli, i quali oscilleranno sincroni alla frequenza posseduta quando oscillano \emph{singolarmente}. L'altro modo, invece, si ha spostando i pendoli in versi opposti ma con la stessa ampiezza e, in questo caso, la molla sollecitata andrà invece ad influenzare il moto.
+Nel caso delle oscillazioni accoppiate, esistono una serie di modi, detti \emph{normali}, con cui è possibile far oscillare il corpo: il primo modo consiste nel far partire i due pendoli con la stessa ampiezza spostandoli nello stesso \emph{verso} e lasciandoli andare nello stesso momento: in questo caso la molla, utilizzata per accoppiare le due oscillazioni, non sarà sollecitata e non andrà ad influenzare il moto dei due pendoli, i quali oscilleranno sincroni alla frequenza posseduta quando oscillano \emph{singolarmente}. L'altro modo, invece, si ha spostando i pendoli in versi opposti ma con la stessa ampiezza e, in questo caso, la molla sollecitata andrà invece ad influenzare il moto. \\
+Se si sposta uno dei pendoli tenendo l'altro fermo nella sua posizione di equilibrio e si lascia oscillare il sistema con questa configurazione, si verifica un fenomeno di \emph{battimenti}, in quanto il moto finale risulta essere la somma (con uguali ampiezze) dei due modi normali
+\begin{equation}
+	x(t) = A_0 \left[\cos{\omega_f t + \phi_1} + \cos{\omega_c t + \phi_2} \right]
+\end{equation}
+dove $\omega_f$ e $\omega_c$ rappresentano, rispettivamente, la pulsazione delle oscillazioni in fase e in controfase. Per le formule di prostaferesi possiamo anche scrivere che:
+\begin{equation}
+	x(t) = 2A_0 \left\{ \cos{\left[\frac{(\omega_c + \omega_f)}{2} t + \frac{\phi_2 + \phi_1}{2} \right] } \cos{\left[ \frac{(\omega_c - \omega_f)}{2} t + \frac{\phi_2 - \phi_1}{2} \right]} \right\}
+\end{equation}
+
 \section{Descrizione delle misure}
 
 Per effettuare questa esperienza era necessario misurare il periodo di oscillazione delle oscillazioni accoppiate in varie situazioni. \\
-Prima di procedere però con le misurazioni di questi, abbiamo misurato la lunghezza dell'asta che oscillava e la sua larghezza, che risulta essere pari a
+Prima di procedere però con le misurazioni di questi, abbiamo misurato una serie di parametri necessari per calcolare il momento di inerzia dei pendoli che utilizzavamo, come la lunghezza dell'asta che oscillava e la sua larghezza, che risultano essere pari a
 \begin{align*}
     &L = & &
 \end{align*}
@@ -78,7 +87,7 @@ mentre per calcolare il momento di inerzia possiamo usare il teorema di Hyugens-
 Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \begin{figure}[H]
 	\centering
-\begin{tikzpicture}[scale=1.5, rotate=-36.25]
+\begin{tikzpicture}[scale=1.5, rotate=-36.65]
 
 % Disegno dell'asta
 \draw[thick] (0,0) -- (3,0);
@@ -90,7 +99,7 @@ Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \filldraw (3,0) circle (2pt);
 
 % Linea tratteggiata per indicare l'ampiezza
-\draw[dashed] (0,0) -- (1.5,-2) node[midway, left] {$l$};
+\draw[dashed] (0,0) -- (1.5,-2) node[midway, left] {$L$};
 
 % Etichetta per l'asta
 \node at (1.5,0.3) {$L$};
@@ -154,12 +163,43 @@ $$
 	\theta_0 (t) = \theta_0 (0) e^{-\frac{t}{\tau}}
 $$
 abbiamo deciso di utilizzare il modello descritto dalla \ref{eq:modello_teorico} siccome non riuscivamo a stimare qual era l'errore che si commetteva considerando come massimo una misurazione da noi compiuta oppure prendendo come massimo una misurazione \emph{virtuale}, ovvero un massimo aggiunto dall'operazione di smoothing della curva. In questa maniera, ad ogni punto potevamo assegnare come incertezza quella strumentale, pari a $1 \, u.a$ (si poteva anche pensare che lo strumento, in quanto digitale, seguisse una distribuzione uniforme, dunque l'errore sarebbe pari a $\frac{1}{\sqrt{12}}$ ma abbiamo ritenuto che l'errore effettivo, che già è piccolo, fosse sottostimato di troppo oltre al fatto che andremo a sottostimare la risoluzione strumentale dello strumento utilizzato). \\
-Riportiamo il grafico del fit:
+Riportiamo il grafico del fit e il grafico dei residui nella prossima pagina.
 
-\begin{wrapfigure}{r}{0.3\textwidth}
-	\centering
-	\includegraphics[scale=0.6]{Grafico_oscillazione_accoppiate_senza_smorzatore.pdf}
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+	\includegraphics[scale=0.6]{Fit_modello.pdf}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}{0.48\textwidth}
+	\includegraphics[scale=0.6]{Grafico_residui.pdf}
+\end{minipage}	
+	\captionof{figure}{Fit e grafico dei residui del nostro modello. Da come si dispongono gli errori, che sembrano seguire una distribuzione sinusoidale non si può che evincere che ci sono dei grossi errori sistematici: probabilmente, gli abbiamo fatto compiere delle oscillazioni troppo grandi e sul bordo della vasca l'attrito esercitato dal fluido era maggiore oppure ci sono altri fattori sistematici a noi sconosciuti.}
+\end{figure}
+
+Il $\chi^2$ ha un valore \emph{gargantuesco}, infatti risulta essere
+$$
+	\chi^2 \approx 6423339
+$$
+da cui potremmo evincere la presenza di errori sistematici. A conferma di ciò si può guardare il grafico dei residui che dà una prova più inconfutabile della presenza di errori sistematici: i residui infatti si dispongono come se fossero una funzione sinusoidale e la presenza di questo \emph{pattern} fa pensare alla presenza di errori di natura non statistica, come si può vedere dallo zoom riportato qua sotto del grafico dei residui.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+	\includegraphics[width=0.5\textwidth, height=200pt]{Zoom_residui.png}
+	\captionof{figure}{Zoom degli errori relativi. Come si può osservare i residui si dispongono come se fossero una funzione sinusoidale, si può dedurre che molto probabilmente nelle nostre misure intervengono degli errori di natura non statistica che sono dovuti al nostro modo di utilizzare l'apparato e/o gli strumenti di misura}
 \end{wrapfigure}
 
-
+Nonostante ciò, le stime effettuate dal fit sono ragionevoli, infatti risulta che il tempo di decadimento del nostro moto risulta essere pari a
+\begin{align}
+	&\hat{\tau} = (18.3 \pm 0.1) \, \si{\second}
+\end{align}
+inoltre, il valore di $\omega$ delle pulsazioni, stimata dal fit, risulta essere pari
+\begin{align}
+	&\hat{\omega} = (4.4308 \pm 0.0004) \, \si{\second}
+\end{align}
+che, in sigma, rispetto all'altro valore dista
+\begin{align}
+	\frac{|4.444 - 4.308|}{\sqrt{\sigma^2_{\omega}+ \sigma^2_{\omega_c}}} \approx 33
+\end{align}
+Da questa vicenda possiamo solamente evincere la solita morale che però non riusciamo mai a mettere in atto (perché siamo lenti nella fase di programmazione): ovvero che quando siamo in laboratorio dovremmo subito effettuare i fit delle nostre misure con i relativi errori per vedere quanto sono \emph{sballate} per rifarle eventualmente. \\
+Passiamo adesso alla misura dei battimenti. Anche in questo caso abbiamo banalmente creato un programma in Python che consentiva di 
 \end{document}
