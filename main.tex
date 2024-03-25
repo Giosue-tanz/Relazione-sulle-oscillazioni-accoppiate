@@ -60,6 +60,8 @@ Dopo aver effettuato queste misure, siamo passati ad analizzare il moto del pend
 Infine, abbiamo misurato le oscillazioni compiuti da un pendolo messo in movimento ma accoppiato ad un altro che parte da fermo. \\
 Riporto qua di lato un esempio di misurazione eseguita dal PC.
 \end{minipage}
+Per calcolare i periodi delle varie oscillazioni abbiamo creato un programma in Python in grado di effettuare uno \emph{smoothing} delle misure per poi utilizzare la libreria \texttt{find\_peaks} per trovare i massimi relativi. I periodi delle oscillazioni a quel punto sono stati calcolati prendendo la differenza fra due massimi consecutivi, tuttavia rimandiamo all'appendice per una trattazione più esaustiva del processo.
+
 \section{Analisi delle misure}
 
 In primis siamo andati a calcolare il momento di inerzia del nostro pendolo fisico: per fare ciò dovevamo calcolare la posizione del centro di massa del nostro corpo e la massa. \\
@@ -75,13 +77,43 @@ mentre per calcolare il momento di inerzia possiamo usare il teorema di Hyugens-
 \end{align*}
 Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \begin{figure}[H]
-		
+	\centering
+\begin{tikzpicture}[scale=1.5, rotate=-36.25]
+
+% Disegno dell'asta
+\draw[thick] (0,0) -- (3,0);
+\filldraw (0,0) circle (2pt);
+\filldraw (3,0) circle (2pt);
+
+% Disegno del cilindro
+\draw[thick] (3,0) circle (0.5);
+\filldraw (3,0) circle (2pt);
+
+% Linea tratteggiata per indicare l'ampiezza
+\draw[dashed] (0,0) -- (1.5,-2) node[midway, left] {$l$};
+
+% Etichetta per l'asta
+\node at (1.5,0.3) {$L$};
+
+% Etichetta per il cilindro
+\node at (3.7,0) {$m$};
+
+% Etichetta per l'ampiezza
+\node at (0.75,-2) {$A$};
+
+% Etichetta per l'angolo
+\draw (0.5,0) arc (0:-50:0.5);
+\node at (0.6,-0.2) {$\theta$};
+
+\end{tikzpicture}
+\caption{Schematizzazione del nostro apparato sperimentale, costituito da un'asta il cui spessore può essere trascurato rispetto alla lunghezza $L$}
 \end{figure}
 quindi possiamo calcolarci il momento di inerzia di questo corpo considerandolo come l'unione di un'asta rigida e un disco di spessore non trascurabile, dunque il momento di inerzia delle sue "parti" risulta essere pari a:
 \begin{align*}
 	&I_C = \frac{1}{12} M_C R^2_C & &I_A = \frac{M_A L^2}{3} + 
 \end{align*}
-Ci siamo calcolati la pulsazione del moto armonico del pendolo realizzando anche un programma in Python che analizzava le misurazioni fatte dal PC effettuando prima uno \emph{smooth} della nostra funzione tramite una \emph{spline} (grazie alle funzionalità della libreria \texttt{scipy.interpolate}) e poi, grazie alla funzione \texttt{find\_peaks} della libreria \texttt{scipy.signal}, ci trovava i massimi di questa curva. A quel punto, per misurare la pulsazione, bastava considerare la distanza di tempo fra due massimi consecutivi. \\ Sebbene avessimo effettuato un'operazione di \emph{smoothing} della curva che introduceva dei nuovi punti \emph{virtuali}, l'errore che si commetteva considerando i nuovi massimi non influiva di molto sulla misura del tempo, siccome la funzione \texttt{CubicSpline}, se ritiene che si trovi fra due punti \emph{reali} va ad inserire il massimo nel punto medio compreso fra i due punti (eventualmente modificando i punti precedenti per \emph{accordare} lo smoothing). Pertanto, visto che eravamo interessati solamente al tempo e non al valore delle ampiezze, l'errore che si commetteva considerando due massimi \emph{virtuali}, ovvero inseriti dal programma, era trascurabile, siccome il computer campionava sempre dopo un intervallo di tempo di circa $0.5 \, s$ dunque lo spline andava a spostarli sempre di un intervallo costante che si cancellava nel momento in cui si consideravano le ascisse di due massimi consecutivi. \\
+%Ci siamo calcolati la pulsazione del moto armonico del pendolo realizzando anche un programma in Python che analizzava le misurazioni fatte dal PC effettuando prima uno \emph{smooth} della nostra funzione tramite una \emph{spline} (grazie alle funzionalità della libreria \texttt{scipy.interpolate}) e poi, grazie alla funzione \texttt{find\_peaks} della libreria \texttt{scipy.signal}, ci trovava i massimi di questa curva. A quel punto, 
+Per misurare la pulsazione, bastava considerare la distanza di tempo fra due massimi consecutivi. Sebbene avessimo effettuato un'operazione di \emph{smoothing} della curva che introduceva dei nuovi punti \emph{virtuali}, l'errore che si commetteva considerando i nuovi massimi non influiva di molto sulla misura del tempo, siccome la funzione \texttt{CubicSpline}, se ritiene che si trovi fra due punti \emph{reali} va ad inserire il massimo nel punto medio compreso fra i due punti (eventualmente modificando i punti precedenti per \emph{accordare} lo smoothing). Pertanto, visto che eravamo interessati solamente al tempo e non al valore delle ampiezze, l'errore che si commetteva considerando due massimi \emph{virtuali}, ovvero inseriti dal programma, era trascurabile, siccome il computer campionava sempre dopo un intervallo di tempo di circa $0.5 \, s$ dunque lo spline andava a spostarli sempre di un intervallo costante che si cancellava nel momento in cui si consideravano le ascisse di due massimi consecutivi. \\
 Ci siamo calcolati, per ogni massimo individuato dalla funzione \texttt{find\_peaks}, la distanza temporale fra i due massimi e abbiamo effettuato la media aritmetica dei tempi trovati:
 \begin{equation}
 	T = \frac{\sum\limits_{i=1}^{n+1} t^{*}_{i+1} - t^{*}_i}{n}
@@ -91,7 +123,6 @@ dove con $t^{*}_{i}$ indicavamo la posizione dell'$i$-esimo massimo e come error
 	\sigma_{T} = \sqrt{\frac{1}{n(n-1)}\sum_{k=1}^{n}{T_k}}
 \end{equation}
 riportiamo la misura di tutti i periodi nei varie casistiche in cui abbiamo studiato il fenomeno nella tabella della prossima pagina.
-\newpage
 
 \begin{table}
 \centering
@@ -102,7 +133,7 @@ Oscillazioni con smorzatore & $1.38 \pm 0.04$ & $4.5 \pm 0.1$ \\ \midrule
 Oscillazioni accoppiate in fase & $1.413 \pm 0.001$ & $4.444 \pm 0.004$ \\ \midrule
 Oscillazioni accoppiate in controfase & $0.88 \pm 0.2$ & $7 \pm 1$ \\ \bottomrule
 \end{tabular}
-\captionof{table}{Tabella con le misure da noi effettuate, riportiamo a sinistra la descrizione in breve del tipo di fenomeno studiato, nella tabella centrale la media dei valori dei periodi ottenuti facendo la distanza temporale fra due massimi consecutivi e, infine, la pulsazione $\omega_0$ calcolata nei vari casi}
+\captionof{table}{Tabella con le misure da noi effettuate, riportiamo a sinistra la descrizione in breve del tipo di fenomeno studiato, nella tabella centrale la media dei valori dei periodi ottenuti facendo la distanza temporale fra due massimi consecutivi e, infine, la pulsazione $\omega_0$ calcolata nei vari casi: come possiamo vedere l'errore che abbiamo sulle oscillazioni in controfase e nelle oscillazioni con smorzatore dovuto al fatto che abbiamo effettuato delle misure in cui abbiamo fatto partire i due pendoli non allo stesso momento e questo stacco fra i due non è trascurabile mentre nelle oscillazioni con smorzatore il motivo probabilmente è dovuto al fatto che la pallina è stata influenzata troppo dagli attriti del fluido alle estremità del bordo}
 \end{table}
 
 \noindent Per calcolare la pulsazione $\omega_0$, sempre riportata nella tabella di fianco, abbiamo utilizzato la seguente relazione:
@@ -122,5 +153,13 @@ Sebbene le ampiezze massima dell'oscillazione variava, in funzione del tempo, ne
 $$
 	\theta_0 (t) = \theta_0 (0) e^{-\frac{t}{\tau}}
 $$
-abbiamo deciso di utilizzare il modello descritto dalla ~\ref{eq:modello_teorico} siccome non riuscivamo a stimare qual era l'errore che si commetteva considerando come massimo una misurazione da noi compiuta oppure prendendo come massimo una misurazione \emph{virtuale}, ovvero un massimo aggiunto dall'operazione di smoothing della curva. In questa maniera, ad ogni punto potevamo assegnare come incertezza quella strumentale, pari a $1 \, u.a$ (si poteva anche pensare che lo strumento, in quanto digitale, seguisse una distribuzione uniforme, dunque l'errore sarebbe pari a $\frac{1}{\sqrt{12}}$ ma abbiamo ritenuto che l'errore effettivo, che già è piccolo, fosse sottostimato di troppo).
+abbiamo deciso di utilizzare il modello descritto dalla \ref{eq:modello_teorico} siccome non riuscivamo a stimare qual era l'errore che si commetteva considerando come massimo una misurazione da noi compiuta oppure prendendo come massimo una misurazione \emph{virtuale}, ovvero un massimo aggiunto dall'operazione di smoothing della curva. In questa maniera, ad ogni punto potevamo assegnare come incertezza quella strumentale, pari a $1 \, u.a$ (si poteva anche pensare che lo strumento, in quanto digitale, seguisse una distribuzione uniforme, dunque l'errore sarebbe pari a $\frac{1}{\sqrt{12}}$ ma abbiamo ritenuto che l'errore effettivo, che già è piccolo, fosse sottostimato di troppo oltre al fatto che andremo a sottostimare la risoluzione strumentale dello strumento utilizzato). \\
+Riportiamo il grafico del fit:
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+	\centering
+	\includegraphics[scale=0.6]{Grafico_oscillazione_accoppiate_senza_smorzatore.pdf}
+\end{wrapfigure}
+
+
 \end{document}
