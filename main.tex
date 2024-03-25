@@ -90,5 +90,37 @@ dove con $t^{*}_{i}$ indicavamo la posizione dell'$i$-esimo massimo e come error
 \begin{equation}
 	\sigma_{T} = \sqrt{\frac{1}{n(n-1)}\sum_{k=1}^{n}{T_k}}
 \end{equation}
-riportiamo la misura di tutti i periodi nei varie casistiche in cui abbiamo studiato il fenomeno nella tabella qua accanto
+riportiamo la misura di tutti i periodi nei varie casistiche in cui abbiamo studiato il fenomeno nella tabella della prossima pagina.
+\newpage
+
+\begin{table}
+\centering
+\begin{tabular}{l c c} \toprule
+Descrizione & Media dei periodi ($\si{\second}$) & Pulsazione ($\si{\radian\per\second}$) \\ \\ \toprule
+Oscillazioni senza smorzatore & $1.415 \pm 0.003$ & $4.440 \pm 0.008$ \\ \midrule
+Oscillazioni con smorzatore & $1.38 \pm 0.04$ & $4.5 \pm 0.1$ \\ \midrule
+Oscillazioni accoppiate in fase & $1.413 \pm 0.001$ & $4.444 \pm 0.004$ \\ \midrule
+Oscillazioni accoppiate in controfase & $0.88 \pm 0.2$ & $7 \pm 1$ \\ \bottomrule
+\end{tabular}
+\captionof{table}{Tabella con le misure da noi effettuate, riportiamo a sinistra la descrizione in breve del tipo di fenomeno studiato, nella tabella centrale la media dei valori dei periodi ottenuti facendo la distanza temporale fra due massimi consecutivi e, infine, la pulsazione $\omega_0$ calcolata nei vari casi}
+\end{table}
+
+\noindent Per calcolare la pulsazione $\omega_0$, sempre riportata nella tabella di fianco, abbiamo utilizzato la seguente relazione:
+\begin{equation}
+	\omega_0 = \frac{2\pi}{T}
+\end{equation}
+dove $T$ è la media dei periodi. Come errore, abbiamo considerato il fatto che gli errori relativi statici si conservano durante prodotti e divisioni, dunque:
+\begin{equation*}
+	\frac{\sigma_{\omega_0}}{\omega_0} = \frac{\sigma_{T}}{T} \, \implies \, \sigma_{\omega_0} = \frac{\sigma_T}{T} \omega_0 = \frac{\sigma_T}{T} \frac{2\pi}{T} = \frac{2\pi \sigma_T}{T^2}
+\end{equation*}
+Abbiamo anche stimato il tempo di decadimento dell'ampiezza del moto con smorzatore tramite il metodo del parametro libero tramite fit: abbiamo usato come modello teorico per le nostre misure il seguente
+\begin{equation}
+	x(t) = \theta_0 (0)e^{-\frac{t}{\tau}}\cos{\left( \omega t + \phi \right) }
+	\label{eq:modello_teorico}
+\end{equation}
+Sebbene le ampiezze massima dell'oscillazione variava, in funzione del tempo, nella seguente maniera
+$$
+	\theta_0 (t) = \theta_0 (0) e^{-\frac{t}{\tau}}
+$$
+abbiamo deciso di utilizzare il modello descritto dalla ~\ref{eq:modello_teorico} siccome non riuscivamo a stimare qual era l'errore che si commetteva considerando come massimo una misurazione da noi compiuta oppure prendendo come massimo una misurazione \emph{virtuale}, ovvero un massimo aggiunto dall'operazione di smoothing della curva. In questa maniera, ad ogni punto potevamo assegnare come incertezza quella strumentale, pari a $1 \, u.a$ (si poteva anche pensare che lo strumento, in quanto digitale, seguisse una distribuzione uniforme, dunque l'errore sarebbe pari a $\frac{1}{\sqrt{12}}$ ma abbiamo ritenuto che l'errore effettivo, che già è piccolo, fosse sottostimato di troppo).
 \end{document}
