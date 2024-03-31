@@ -23,7 +23,7 @@ class Oscillazione():
         self._max = self.find_max(self.start, self.stop)
         self.graph()
         print(f"{self.mu} + {self.sigma_mu}")
-        print(f"La pulsazione è {(2 * np.pi) / self.mu} +- {[(2 * np.pi) * self.sigma_mu]/ (self.mu ** 2)}")
+        print(f"La pulsazione delle oscillazioni in {savename} è {(2 * np.pi) / self.mu} +- {[(2 * np.pi) * self.sigma_mu]/ (self.mu ** 2)}")
 
     def graph(self, A=False, B=True, _together=False):
         plt.plot(self.osc["tB"][self.s], self.osc["posB"][self.s], color="orange")
@@ -56,29 +56,27 @@ class Oscillazione():
         else:
             if ("controfase" in self.savename) == True:
                 stop = len(self.osc["posB"])
-                s = slice(self.start, stop)
+                s = slice(self.start, 2000)
                 cs1 = CubicSpline(self.osc["tB"][s], self.osc["posB"][s])
                 cs2 = CubicSpline(self.osc["tA"][s], self.osc["posA"][s])
-                # cs2 = CubicSpline(self.osc["tA"][s], self.osc["posA"][s])
-                x = np.linspace(1, 10, 2 * (len(self.osc["tB"][s] + len(self.osc["tA"][s]))))
+                x = np.linspace(1, 20, 2 * len(self.osc["tB"][s]))
                 _sum = cs1(x) + cs2(x)
-                peaks, _ = find_peaks(_sum, height=150)
+                peaks, _ = find_peaks(_sum, height=900, distance=35)
+                plt.errorbar(x[peaks], _sum[peaks], fmt='o')
+                plt.plot(x, _sum)
+                plt.show()
                 self.arr = x[peaks]
             elif ("_fase" in self.savename) == True:
                 stop = len(self.osc["posB"])
                 s = slice(self.start, 2000)
                 cs1 = CubicSpline(self.osc["tB"][s], self.osc["posB"][s])
                 cs2 = CubicSpline(self.osc["tA"][s], self.osc["posA"][s])
-                x = np.linspace(1, 50, 2 * len(self.osc["tB"][s]))
+                x = np.linspace(1, 20, 2 * len(self.osc["tB"][s]))
                 _sum = cs1(x) + cs2(x)
                 peaks, _ = find_peaks(_sum, height=150)
-                self.arr = x[peaks]
-            else:
-                cs1 = CubicSpline(self.osc["tB"][self.s], self.osc["posB"][self.s] )
-                # cs2 = CubicSpline(self.osc["tA"][s], self.osc["posA"][s])
-                x = np.linspace(1, 50, 2 * len(self.osc["tB"][self.s]))
-                _sum = cs1(x)
-                peaks, _ = find_peaks(_sum, height=150)
+                plt.errorbar(x[peaks], _sum[peaks], fmt='o')
+                plt.plot(x, _sum)
+                plt.show()
                 self.arr = x[peaks]
         self.calculation()
     def print_pulsazione():

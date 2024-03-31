@@ -77,13 +77,14 @@ In primis siamo andati a calcolare il momento di inerzia del nostro pendolo fisi
 \textbf{Osservazioni}: sebbene l'asta presentasse dei \emph{buchi}, abbiamo considerato come trascurabile lo spostamento del centro di massa dovuto a questi. Oltre a ciò l'asta e il disco si sono considerati omogenei, quindi la loro densità era costante in ogni punto del materiale, e nel calcolo del momento di inerzia abbiamo considerato la sbarra come un'asta con spessore trascurabile rispetto al dimensioni effettive del calcolo. \\
 Per calcolare il momento di inerzia siamo quindi andati a calcolare la massa del disco di ottone e la massa dell'asta usando la densità dei due materiali
 \begin{align*}
-	&m_O = \rho_O V_O = \rho_o \pi r^2 d \approx & &m_A = \rho_A V_A = \rho_A Llh \\
-	&\sigma_O = m_0 \sqrt{4 \left(\frac{\sigma_r}{r} \right)^2 + \left( \frac{\sigma_d}{d} \right)^2}  & &\sigma_A = m_A \sqrt{ \left(\frac{\sigma_L}{L} \right)^2 + \left( \frac{\sigma_l}{l} \right)^2 + \left( \frac{\sigma_h}{h} \right)^2}
+	&m_O = \rho_O V_O = \rho_o \pi r^2 d \approx 0.401 \, \si{\kilogram} & &m_A = \rho_A V_A = \rho_A Llh \approx 0.0926 \, \si{\kilogram} \\
+	&\sigma_O = m_0 \sqrt{4 \left(\frac{\sigma_r}{r} \right)^2 + \left( \frac{\sigma_d}{d} \right)^2} \approx 0.002 \, \si{\kilogram} & &\sigma_A = m_A \sqrt{ \left(\frac{\sigma_L}{L} \right)^2 + \left( \frac{\sigma_l}{l} \right)^2 + \left( \frac{\sigma_h}{h} \right)^2} \approx 0.0008 \, \si{\kilogram}
 \end{align*}
 mentre per calcolare il momento di inerzia possiamo usare il teorema di Hyugens-Steiner
 \begin{align*}
 	I_P = I_{CM} + Md^2
 \end{align*}
+ovvero $I_P$ rappresenta momento di inerzia di un corpo che sta ruotando attorno ad un asse $P$ parallelo all'asse di rotazione passante per il centro di massa. \\
 Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \begin{figure}[H]
 	\centering
@@ -101,14 +102,13 @@ Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 % Linea tratteggiata per indicare l'ampiezza
 \draw[dashed] (0,0) -- (1.5,-2) node[midway, left] {$L$};
 
+% Etichetta per il perno
+\node at (0,0) [left]{$P$};
 % Etichetta per l'asta
 \node at (1.5,0.3) {$L$};
 
 % Etichetta per il cilindro
 \node at (3.7,0) {$m$};
-
-% Etichetta per l'ampiezza
-\node at (0.75,-2) {$A$};
 
 % Etichetta per l'angolo
 \draw (0.5,0) arc (0:-50:0.5);
@@ -117,9 +117,9 @@ Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \end{tikzpicture}
 \caption{Schematizzazione del nostro apparato sperimentale, costituito da un'asta il cui spessore può essere trascurato rispetto alla lunghezza $L$}
 \end{figure}
-quindi possiamo calcolarci il momento di inerzia di questo corpo considerandolo come l'unione di un'asta rigida e un disco di spessore non trascurabile, dunque il momento di inerzia delle sue "parti" risulta essere pari a:
+\noindent quindi possiamo calcolarci il momento di inerzia di questo corpo considerandolo come l'unione di un'asta rigida e un disco di spessore non trascurabile, dunque il momento di inerzia delle sue "parti" risulta essere pari a:
 \begin{align*}
-	&I_C = \frac{1}{12} M_C R^2_C & &I_A = \frac{M_A L^2}{3} + 
+	&I_C = \frac{1}{12} M_C R^2_C & &I_A = \frac{M_A L^2}{3} + \frac{M_A d^2}{4} = 
 \end{align*}
 %Ci siamo calcolati la pulsazione del moto armonico del pendolo realizzando anche un programma in Python che analizzava le misurazioni fatte dal PC effettuando prima uno \emph{smooth} della nostra funzione tramite una \emph{spline} (grazie alle funzionalità della libreria \texttt{scipy.interpolate}) e poi, grazie alla funzione \texttt{find\_peaks} della libreria \texttt{scipy.signal}, ci trovava i massimi di questa curva. A quel punto, 
 Per misurare la pulsazione, bastava considerare la distanza di tempo fra due massimi consecutivi. Sebbene avessimo effettuato un'operazione di \emph{smoothing} della curva che introduceva dei nuovi punti \emph{virtuali}, l'errore che si commetteva considerando i nuovi massimi non influiva di molto sulla misura del tempo, siccome la funzione \texttt{CubicSpline}, se ritiene che si trovi fra due punti \emph{reali} va ad inserire il massimo nel punto medio compreso fra i due punti (eventualmente modificando i punti precedenti per \emph{accordare} lo smoothing). Pertanto, visto che eravamo interessati solamente al tempo e non al valore delle ampiezze, l'errore che si commetteva considerando due massimi \emph{virtuali}, ovvero inseriti dal programma, era trascurabile, siccome il computer campionava sempre dopo un intervallo di tempo di circa $0.5 \, s$ dunque lo spline andava a spostarli sempre di un intervallo costante che si cancellava nel momento in cui si consideravano le ascisse di due massimi consecutivi. \\
@@ -174,7 +174,7 @@ Riportiamo il grafico del fit e il grafico dei residui nella prossima pagina.
 \begin{minipage}{0.48\textwidth}
 	\includegraphics[scale=0.6]{Grafico_residui.pdf}
 \end{minipage}	
-	\captionof{figure}{Fit e grafico dei residui del nostro modello. Da come si dispongono gli errori, che sembrano seguire una distribuzione sinusoidale non si può che evincere che ci sono dei grossi errori sistematici: probabilmente, gli abbiamo fatto compiere delle oscillazioni troppo grandi e sul bordo della vasca l'attrito esercitato dal fluido era maggiore oppure ci sono altri fattori sistematici a noi sconosciuti.}
+	\captionof{figure}{Fit e grafico dei residui del nostro modello. Da come si dispongono gli errori, che si distribuiscono intorno allo zero con una sorta di \emph{simmetria}, non si può che evincere che ci sono dei grossi errori sistematici: probabilmente, gli abbiamo fatto compiere delle oscillazioni troppo grandi e sul bordo della vasca l'attrito esercitato dal fluido era maggiore oppure ci sono altri fattori sistematici a noi sconosciuti.}
 \end{figure}
 
 Il $\chi^2$ ha un valore \emph{gargantuesco}, infatti risulta essere
@@ -200,6 +200,7 @@ che, in sigma, rispetto all'altro valore dista
 \begin{align}
 	\frac{|4.444 - 4.308|}{\sqrt{\sigma^2_{\omega}+ \sigma^2_{\omega_c}}} \approx 33
 \end{align}
-Da questa vicenda possiamo solamente evincere la solita morale che però non riusciamo mai a mettere in atto (perché siamo lenti nella fase di programmazione): ovvero che quando siamo in laboratorio dovremmo subito effettuare i fit delle nostre misure con i relativi errori per vedere quanto sono \emph{sballate} per rifarle eventualmente. \\
-Passiamo adesso alla misura dei battimenti. Anche in questo caso abbiamo banalmente creato un programma in Python che consentiva di 
+Da questa vicenda possiamo solamente evincere la solita morale che però non riusciamo mai a mettere in atto (perché siamo lenti nella fase di programmazione): ovvero che quando siamo in laboratorio dovremmo subito effettuare i fit delle nostre misure con i relativi errori per vedere quanto sono \emph{sballate} per rifarle eventualmente. Nonostante ciò i parametri non sono troppo irragionevoli rispetto al valore teorico, tuttavia gli errori sono sicuramente sottostimati visto che dista veramente troppo dal valore da noi atteso. \\
+Passiamo adesso alla misura dei battimenti. Anche in questo caso abbiamo \emph{riciclato} parte del programma precedente poiché dovevamo trovare i picchi dei nostri dati per individuare la pulsazione portante e la pulsazione modulante: per la prima abbiamo operato come sopra, mentre per l'altra pulsazione abbiamo misurato tramite lo strumento zoom di Matplotlib i picchi dei battimenti.
+Tramite questa analisi siamo riusciti a misurare la pulsazione dell'oscillazione portante e modulante, che risulta essere rispettivamente pari a
 \end{document}
