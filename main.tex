@@ -37,13 +37,18 @@ dove $\omega_f$ e $\omega_c$ rappresentano, rispettivamente, la pulsazione delle
 
 Per effettuare questa esperienza era necessario misurare il periodo di oscillazione delle oscillazioni accoppiate in varie situazioni. \\
 Prima di procedere però con le misurazioni di questi, abbiamo misurato una serie di parametri necessari per calcolare il momento di inerzia dei pendoli che utilizzavamo, come la lunghezza dell'asta che oscillava e la sua larghezza, che risultano essere pari a
-\begin{align*}
-    &L = & &
-\end{align*}
-e abbiamo misurato il raggio e lo spessore del disco a cui l'asta era attaccata, pari a
-\begin{align*}
-    &R = & & 
-\end{align*}
+\begin{table}[H]
+\centering
+\begin{tabular}{l c}
+	Descrizione & Misura \\ \midrule	Lunghezza totale delle aste $L$ & $(49.6 \pm 0.1) \, \si{\centi\meter}$ \\ \midrule
+	Larghezza delle aste $l$ & $(0.835 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
+	Profondità delle aste $h$ & $(0.825 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
+	Raggio del disco cilindrico $r_C$ & $(3.5 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
+	Spessore del disco cilindrico $h_C$ & $(1.225 \pm 0.005) \, \si{\centi\meter}$  \\ \bottomrule
+\end{tabular}
+\caption{Misure dei parametri necessari per poter determinare, tramite la densità, la massa del pendolo utilizzato e per determinare il momento di inerzia del nostro corpo.}
+\end{table}
+
 \begin{minipage}{0.5\textwidth}
     \centering
     \begin{tabular}{c c c c}
@@ -77,8 +82,8 @@ In primis siamo andati a calcolare il momento di inerzia del nostro pendolo fisi
 \textbf{Osservazioni}: sebbene l'asta presentasse dei \emph{buchi}, abbiamo considerato come trascurabile lo spostamento del centro di massa dovuto a questi. Oltre a ciò l'asta e il disco si sono considerati omogenei, quindi la loro densità era costante in ogni punto del materiale, e nel calcolo del momento di inerzia abbiamo considerato la sbarra come un'asta con spessore trascurabile rispetto al dimensioni effettive del calcolo. \\
 Per calcolare il momento di inerzia siamo quindi andati a calcolare la massa del disco di ottone e la massa dell'asta usando la densità dei due materiali
 \begin{align*}
-	&m_O = \rho_O V_O = \rho_o \pi r^2 d \approx 0.401 \, \si{\kilogram} & &m_A = \rho_A V_A = \rho_A Llh \approx 0.0926 \, \si{\kilogram} \\
-	&\sigma_O = m_0 \sqrt{4 \left(\frac{\sigma_r}{r} \right)^2 + \left( \frac{\sigma_d}{d} \right)^2} \approx 0.002 \, \si{\kilogram} & &\sigma_A = m_A \sqrt{ \left(\frac{\sigma_L}{L} \right)^2 + \left( \frac{\sigma_l}{l} \right)^2 + \left( \frac{\sigma_h}{h} \right)^2} \approx 0.0008 \, \si{\kilogram}
+	&m_C = \rho_O V_O = \rho_o \pi r^2 d \approx 0.401 \, \si{\kilogram} & &m_A = \rho_A V_A = \rho_A Llh \approx 0.0926 \, \si{\kilogram} \\
+	&\sigma_{m_C} = m_0 \sqrt{4 \left(\frac{\sigma_r}{r} \right)^2 + \left( \frac{\sigma_d}{d} \right)^2} \approx 0.002 \, \si{\kilogram} & &\sigma_{m_A} = m_A \sqrt{ \left(\frac{\sigma_L}{L} \right)^2 + \left( \frac{\sigma_l}{l} \right)^2 + \left( \frac{\sigma_h}{h} \right)^2} \approx 0.0008 \, \si{\kilogram}
 \end{align*}
 mentre per calcolare il momento di inerzia possiamo usare il teorema di Hyugens-Steiner
 \begin{align*}
@@ -91,7 +96,7 @@ Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \begin{tikzpicture}[scale=1.5, rotate=-36.65]
 
 % Disegno dell'asta
-\draw[thick] (0,0) -- (3,0);
+\draw[thick] (-0.25,0) -- (3,0);
 \filldraw (0,0) circle (2pt);
 \filldraw (3,0) circle (2pt);
 
@@ -105,10 +110,7 @@ Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 % Etichetta per il perno
 \node at (0,0) [left]{$P$};
 % Etichetta per l'asta
-\node at (1.5,0.3) {$L$};
-
-% Etichetta per il cilindro
-\node at (3.7,0) {$m$};
+\node at (1.5,0.3) {$d$};
 
 % Etichetta per l'angolo
 \draw (0.5,0) arc (0:-50:0.5);
@@ -119,7 +121,7 @@ Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \end{figure}
 \noindent quindi possiamo calcolarci il momento di inerzia di questo corpo considerandolo come l'unione di un'asta rigida e un disco di spessore non trascurabile, dunque il momento di inerzia delle sue "parti" risulta essere pari a:
 \begin{align*}
-	&I_C = \frac{1}{12} M_C R^2_C & &I_A = \frac{M_A L^2}{3} + \frac{M_A d^2}{4} = 
+	&I_C = \frac{1}{2} m_C r^2_C + m_C d^2 & &I_A = \frac{m_A L^2}{12} \, + \, m_A d^2 = 
 \end{align*}
 %Ci siamo calcolati la pulsazione del moto armonico del pendolo realizzando anche un programma in Python che analizzava le misurazioni fatte dal PC effettuando prima uno \emph{smooth} della nostra funzione tramite una \emph{spline} (grazie alle funzionalità della libreria \texttt{scipy.interpolate}) e poi, grazie alla funzione \texttt{find\_peaks} della libreria \texttt{scipy.signal}, ci trovava i massimi di questa curva. A quel punto, 
 Per misurare la pulsazione, bastava considerare la distanza di tempo fra due massimi consecutivi. Sebbene avessimo effettuato un'operazione di \emph{smoothing} della curva che introduceva dei nuovi punti \emph{virtuali}, l'errore che si commetteva considerando i nuovi massimi non influiva di molto sulla misura del tempo, siccome la funzione \texttt{CubicSpline}, se ritiene che si trovi fra due punti \emph{reali} va ad inserire il massimo nel punto medio compreso fra i due punti (eventualmente modificando i punti precedenti per \emph{accordare} lo smoothing). Pertanto, visto che eravamo interessati solamente al tempo e non al valore delle ampiezze, l'errore che si commetteva considerando due massimi \emph{virtuali}, ovvero inseriti dal programma, era trascurabile, siccome il computer campionava sempre dopo un intervallo di tempo di circa $0.5 \, s$ dunque lo spline andava a spostarli sempre di un intervallo costante che si cancellava nel momento in cui si consideravano le ascisse di due massimi consecutivi. \\
