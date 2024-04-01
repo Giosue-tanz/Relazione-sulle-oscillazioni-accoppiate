@@ -1,9 +1,21 @@
 import numpy as np
+import uncertainties as uc
+import uncertainties.umath as ucm
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
 from scipy.signal import find_peaks
 path = "./misurazioni/"
+m_C = uc.ufloat(0.410, 0.002)
+m_A = uc.ufloat(0.0926, 0.0008)
+r_C = uc.ufloat(3.5/100., 0.005/100.)
+d = uc.ufloat(47.5/100., 0.1/100.)
+L = uc.ufloat(49.6/100., 0.1/100.)
+l_C = uc.ufloat(24.8/100., 0.1/100.)
+p = uc.ufloat(0.825/100., 0.005/100.)
+I = 0.5 * ucm.pow(r_C, 2) * m_C + m_C * ucm.pow(d + r_C, 2) + (1./12.) * m_A * (ucm.pow(L, 2) + ucm.pow(p, 2)) + m_A * ucm.pow(d-l_C, 2)
+delta = L - ((m_C * (L + r_C) + m_A * (l_C))/(m_C + m_A))
+print(ucm.sqrt(((m_C + m_A) * 9.81 * (L-delta))/I))
 class Oscillazione():
     def __init__(self, data, savename, start=0, stop=1000, _together=False):
         self.start = start
@@ -50,7 +62,7 @@ class Oscillazione():
         if self._together == False:
             s = slice(self.start, self.stop)
             cs = CubicSpline(self.osc["tB"][s], self.osc["posB"][s])
-            x = np.linspace(1, 25, 2 * len(self.osc["tB"][s]))
+            x = np.linspace(1, 50, 2 * len(self.osc["tB"][s]))
             peaks, _ = find_peaks(cs(x))
             self.arr = x[peaks]
         else:

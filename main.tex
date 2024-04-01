@@ -21,17 +21,33 @@ Dato un pendolo fisico, sappiamo che il suo moto può essere determinato risolve
 da cui possiamo ricavare, nell'ipotesi delle piccole oscillazioni attorno al punto di equilibrio, la pulsazione del pendolo, pari a
 \begin{equation}
 	\omega_0 = \sqrt{\frac{mgd}{I}}
+	\label{pulsazione}
 \end{equation}
 dove $d$ rappresenta la distanza del perno dal centro di massa dell'oggetto, mentre $I$ il momento di inerzia del corpo. \\
 Nel caso delle oscillazioni accoppiate, esistono una serie di modi, detti \emph{normali}, con cui è possibile far oscillare il corpo: il primo modo consiste nel far partire i due pendoli con la stessa ampiezza spostandoli nello stesso \emph{verso} e lasciandoli andare nello stesso momento: in questo caso la molla, utilizzata per accoppiare le due oscillazioni, non sarà sollecitata e non andrà ad influenzare il moto dei due pendoli, i quali oscilleranno sincroni alla frequenza posseduta quando oscillano \emph{singolarmente}. L'altro modo, invece, si ha spostando i pendoli in versi opposti ma con la stessa ampiezza e, in questo caso, la molla sollecitata andrà invece ad influenzare il moto. \\
 Se si sposta uno dei pendoli tenendo l'altro fermo nella sua posizione di equilibrio e si lascia oscillare il sistema con questa configurazione, si verifica un fenomeno di \emph{battimenti}, in quanto il moto finale risulta essere la somma (con uguali ampiezze) dei due modi normali
 \begin{equation}
-	x(t) = A_0 \left[\cos{\omega_f t + \phi_1} + \cos{\omega_c t + \phi_2} \right]
+	x(t) = A_0 \left[\cos{ \left(\omega_f t + \phi_1 \right) } + \cos{ \left( \omega_c t + \phi_2 \right) } \right]
 \end{equation}
 dove $\omega_f$ e $\omega_c$ rappresentano, rispettivamente, la pulsazione delle oscillazioni in fase e in controfase. Per le formule di prostaferesi possiamo anche scrivere che:
 \begin{equation}
 	x(t) = 2A_0 \left\{ \cos{\left[\frac{(\omega_c + \omega_f)}{2} t + \frac{\phi_2 + \phi_1}{2} \right] } \cos{\left[ \frac{(\omega_c - \omega_f)}{2} t + \frac{\phi_2 - \phi_1}{2} \right]} \right\}
 \end{equation}
+
+\section{Strumenti di misura e materiali}
+
+\textbf{Strumenti}:
+\begin{itemize}
+	\item PC con programma \emph{plasduino};
+	\item Metro a nastro: sensibilità $0.1 \, \si{\centi\meter}$;
+	\item Calibro ventesimale: sensibilità $0.005 \, \si{\centi\meter}$
+\end{itemize}
+\textbf{Materiali}:
+\begin{itemize}
+	\item Molla elastica;
+	\item Sistema oscillante costituito da due pendoli;
+	\item Scheda Arduino;
+\end{itemize}
 
 \section{Descrizione delle misure}
 
@@ -40,11 +56,14 @@ Prima di procedere però con le misurazioni di questi, abbiamo misurato una seri
 \begin{table}[H]
 \centering
 \begin{tabular}{l c}
-	Descrizione & Misura \\ \midrule	Lunghezza totale delle aste $L$ & $(49.6 \pm 0.1) \, \si{\centi\meter}$ \\ \midrule
-	Larghezza delle aste $l$ & $(0.835 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
-	Profondità delle aste $h$ & $(0.825 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
-	Raggio del disco cilindrico $r_C$ & $(3.5 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
-	Spessore del disco cilindrico $h_C$ & $(1.225 \pm 0.005) \, \si{\centi\meter}$  \\ \bottomrule
+	Descrizione & Misura \\ \midrule	
+	Lunghezza $L$ totale delle aste & $(49.6 \pm 0.1) \, \si{\centi\meter}$ \\ \midrule
+	Larghezza $l$ delle aste & $(0.835 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
+	Spessore $h$ delle aste & $(0.825 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
+	Raggio $r_C$ del disco cilindrico & $(3.5 \pm 0.005) \, \si{\centi\meter}$ \\ \midrule
+	Spessore $h_C$ del disco cilindrico & $(1.225 \pm 0.005) \, \si{\centi\meter}$  \\ \midrule
+	Distanza $d$ del perno dall'estremità a cui è attaccato il disco & $(47.5 \pm 0.1) \, \si{\centi\meter}$ \\
+	\bottomrule
 \end{tabular}
 \caption{Misure dei parametri necessari per poter determinare, tramite la densità, la massa del pendolo utilizzato e per determinare il momento di inerzia del nostro corpo.}
 \end{table}
@@ -54,7 +73,8 @@ Prima di procedere però con le misurazioni di questi, abbiamo misurato una seri
     \begin{tabular}{c c c c}
         \toprule
         Tempo A & Posizione A & Tempo B & Posizione B \\
-        $(s)$ &  $u.a.$ & $s$ & $u.a.$ \\ \toprule
+        $(\si{\second})$ &  $(u.a.)$ & $(\si{\second})$ & $(u.a.)$ \\
+        $\pm 0.050 \, \, \si{\second}$ & $\pm 1 \, u.a.$ & $\pm 0.050 \, \, \si{\second}$ & $\pm 1 \, u.a.$ \\ \toprule
         0.026 & 504 & 0.051 & 233 \\
         0.076 & 504 & 0.101 & 282 \\
         0.127 & 505 & 0.153 & 365 \\
@@ -74,7 +94,7 @@ Dopo aver effettuato queste misure, siamo passati ad analizzare il moto del pend
 Infine, abbiamo misurato le oscillazioni compiuti da un pendolo messo in movimento ma accoppiato ad un altro che parte da fermo. \\
 Riporto qua di lato un esempio di misurazione eseguita dal PC.
 \end{minipage}
-Per calcolare i periodi delle varie oscillazioni abbiamo creato un programma in Python in grado di effettuare uno \emph{smoothing} delle misure per poi utilizzare la libreria \texttt{find\_peaks} per trovare i massimi relativi. I periodi delle oscillazioni a quel punto sono stati calcolati prendendo la differenza fra due massimi consecutivi, tuttavia rimandiamo all'appendice per una trattazione più esaustiva del processo.
+Per calcolare i periodi delle varie oscillazioni abbiamo creato un programma in Python in grado di effettuare uno \emph{smoothing} delle misure per poi utilizzare la libreria \texttt{find\_peaks} per trovare i massimi relativi. I periodi delle oscillazioni a quel punto sono stati calcolati prendendo la differenza fra due massimi consecutivi.
 
 \section{Analisi delle misure}
 
@@ -82,7 +102,7 @@ In primis siamo andati a calcolare il momento di inerzia del nostro pendolo fisi
 \textbf{Osservazioni}: sebbene l'asta presentasse dei \emph{buchi}, abbiamo considerato come trascurabile lo spostamento del centro di massa dovuto a questi. Oltre a ciò l'asta e il disco si sono considerati omogenei, quindi la loro densità era costante in ogni punto del materiale, e nel calcolo del momento di inerzia abbiamo considerato la sbarra come un'asta con spessore trascurabile rispetto al dimensioni effettive del calcolo. \\
 Per calcolare il momento di inerzia siamo quindi andati a calcolare la massa del disco di ottone e la massa dell'asta usando la densità dei due materiali
 \begin{align*}
-	&m_C = \rho_O V_O = \rho_o \pi r^2 d \approx 0.401 \, \si{\kilogram} & &m_A = \rho_A V_A = \rho_A Llh \approx 0.0926 \, \si{\kilogram} \\
+	&m_C = \rho_O V_O = \rho_o \pi r^2 d \approx 0.410 \, \si{\kilogram} & &m_A = \rho_A V_A = \rho_A Llh \approx 0.0926 \, \si{\kilogram} \\
 	&\sigma_{m_C} = m_0 \sqrt{4 \left(\frac{\sigma_r}{r} \right)^2 + \left( \frac{\sigma_d}{d} \right)^2} \approx 0.002 \, \si{\kilogram} & &\sigma_{m_A} = m_A \sqrt{ \left(\frac{\sigma_L}{L} \right)^2 + \left( \frac{\sigma_l}{l} \right)^2 + \left( \frac{\sigma_h}{h} \right)^2} \approx 0.0008 \, \si{\kilogram}
 \end{align*}
 mentre per calcolare il momento di inerzia possiamo usare il teorema di Hyugens-Steiner
@@ -90,7 +110,7 @@ mentre per calcolare il momento di inerzia possiamo usare il teorema di Hyugens-
 	I_P = I_{CM} + Md^2
 \end{align*}
 ovvero $I_P$ rappresenta momento di inerzia di un corpo che sta ruotando attorno ad un asse $P$ parallelo all'asse di rotazione passante per il centro di massa. \\
-Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
+Ora, i due pendoli possono essere schematizzati, prendendoli singolarmente, in questa maniera:
 \begin{figure}[H]
 	\centering
 \begin{tikzpicture}[scale=1.5, rotate=-36.65]
@@ -117,21 +137,37 @@ Ora, la nostra strumentazione può essere schematizzata nella seguente maniera:
 \node at (0.6,-0.2) {$\theta$};
 
 \end{tikzpicture}
-\caption{Schematizzazione del nostro apparato sperimentale, costituito da un'asta il cui spessore può essere trascurato rispetto alla lunghezza $L$}
+\caption{Schematizzazione del nostro apparato sperimentale, che si può pensare come costituito da un'asta il cui spessore $h$ e la cui larghezza $l$ possono essere trascurati rispetto alla lunghezza $L$ e da un disco attaccato all'estremità più lontana dell'asta}
 \end{figure}
 \noindent quindi possiamo calcolarci il momento di inerzia di questo corpo considerandolo come l'unione di un'asta rigida e un disco di spessore non trascurabile, dunque il momento di inerzia delle sue "parti" risulta essere pari a:
 \begin{align*}
-	&I_C = \frac{1}{2} m_C r^2_C + m_C d^2 & &I_A = \frac{m_A L^2}{12} \, + \, m_A d^2 = 
+	&I_C = \frac{1}{2} m_C r^2_C + m_C (d + r_C)^2 & &I_A = \frac{m_A L^2}{12} \, + \, m_A (d - l_{CM})^2 = 
 \end{align*}
+dunque, il momento di inerzia complessivo del nostro sistema risulta essere dato, banalmente, dalla somma dei due
+\begin{equation*}
+	I = I_C + I_A
+\end{equation*}
+L'errore sul momento di inerzia complessivo si calcola sommando in quadratura gli errori statistici dei singoli momenti di inerzia, pertanto:
+\begin{equation*}
+	\sigma_I = \sqrt{\sigma_{I_C}^2 + \sigma_{I_A}^2}
+\end{equation*}
+da cui si ottiene, facendo i conti, che il momento di inerzia del sistema risulta essere pari a:
+\begin{equation}
+	I = (73.9 \pm 0.8) \, \si{\kilogram \cdot \meter^2}
+\end{equation}
+Infine, ci calcoliamo la pulsazione attesa della singola oscillazione usando la formula~\ref{eq:pulsazione}, da cui si può dedurre che il valore da noi atteso è
+\begin{equation}
+	\omega_{opt} = \sqrt{ \frac{M_T gd}{I} } \approx (4.56 \pm 0.01) \, \si{\kilogram \cdot \meter^2}
+\end{equation}
 %Ci siamo calcolati la pulsazione del moto armonico del pendolo realizzando anche un programma in Python che analizzava le misurazioni fatte dal PC effettuando prima uno \emph{smooth} della nostra funzione tramite una \emph{spline} (grazie alle funzionalità della libreria \texttt{scipy.interpolate}) e poi, grazie alla funzione \texttt{find\_peaks} della libreria \texttt{scipy.signal}, ci trovava i massimi di questa curva. A quel punto, 
-Per misurare la pulsazione, bastava considerare la distanza di tempo fra due massimi consecutivi. Sebbene avessimo effettuato un'operazione di \emph{smoothing} della curva che introduceva dei nuovi punti \emph{virtuali}, l'errore che si commetteva considerando i nuovi massimi non influiva di molto sulla misura del tempo, siccome la funzione \texttt{CubicSpline}, se ritiene che si trovi fra due punti \emph{reali} va ad inserire il massimo nel punto medio compreso fra i due punti (eventualmente modificando i punti precedenti per \emph{accordare} lo smoothing). Pertanto, visto che eravamo interessati solamente al tempo e non al valore delle ampiezze, l'errore che si commetteva considerando due massimi \emph{virtuali}, ovvero inseriti dal programma, era trascurabile, siccome il computer campionava sempre dopo un intervallo di tempo di circa $0.5 \, s$ dunque lo spline andava a spostarli sempre di un intervallo costante che si cancellava nel momento in cui si consideravano le ascisse di due massimi consecutivi. \\
+Per misurare la pulsazione, bastava considerare la distanza di tempo fra due massimi consecutivi. Sebbene avessimo effettuato un'operazione di \emph{smoothing} della curva che introduceva dei nuovi punti \emph{virtuali}, l'errore che si commetteva considerando i nuovi massimi non influiva di molto sulla misura del tempo, siccome la funzione \texttt{CubicSpline}, se ritiene che si trovi fra due punti \emph{reali} va ad inserire il massimo nel punto medio compreso fra i due punti (eventualmente modificando i punti precedenti per \emph{accordare} lo smoothing). Pertanto, visto che eravamo interessati solamente al tempo e non al valore delle ampiezze, l'errore che si commetteva considerando la differenza fra due massimi \emph{virtuali}, ovvero inseriti dal programma, era trascurabile, siccome il computer campionava sempre dopo un intervallo di tempo di circa $0.5 \, s$ dunque lo spline andava a spostarli sempre di un intervallo costante che si cancellava nel momento in cui si consideravano le ascisse di due massimi consecutivi. \\
 Ci siamo calcolati, per ogni massimo individuato dalla funzione \texttt{find\_peaks}, la distanza temporale fra i due massimi e abbiamo effettuato la media aritmetica dei tempi trovati:
 \begin{equation}
 	T = \frac{\sum\limits_{i=1}^{n+1} t^{*}_{i+1} - t^{*}_i}{n}
 \end{equation}
 dove con $t^{*}_{i}$ indicavamo la posizione dell'$i$-esimo massimo e come errore sulla media abbiamo utilizzato la deviazione standard della media aritmetica
 \begin{equation}
-	\sigma_{T} = \sqrt{\frac{1}{n(n-1)}\sum_{k=1}^{n}{T_k}}
+	\sigma_{T} = \sqrt{\frac{1}{n(n-1)}\sum_{k=1}^{n} \left( T - T_k \right)^2}
 \end{equation}
 riportiamo la misura di tutti i periodi nei varie casistiche in cui abbiamo studiato il fenomeno nella tabella della prossima pagina.
 
@@ -139,12 +175,13 @@ riportiamo la misura di tutti i periodi nei varie casistiche in cui abbiamo stud
 \centering
 \begin{tabular}{l c c} \toprule
 Descrizione & Media dei periodi ($\si{\second}$) & Pulsazione ($\si{\radian\per\second}$) \\ \\ \toprule
-Oscillazioni senza smorzatore & $1.415 \pm 0.003$ & $4.440 \pm 0.008$ \\ \midrule
+Oscillazioni senza smorzatore & $1.414 \pm 0.007$ & $4.44 \pm 0.02$ \\ \midrule
 Oscillazioni con smorzatore & $1.38 \pm 0.04$ & $4.5 \pm 0.1$ \\ \midrule
-Oscillazioni accoppiate in fase & $1.413 \pm 0.001$ & $4.444 \pm 0.004$ \\ \midrule
-Oscillazioni accoppiate in controfase & $0.88 \pm 0.2$ & $7 \pm 1$ \\ \bottomrule
+Oscillazioni accoppiate in fase & $1.414 \pm 0.001$ & $4.443 \pm 0.004$ \\ \midrule
+Oscillazioni accoppiate in controfase & $1.41 \pm 0.01$ & $4.46 \pm 0.05$ \\ \bottomrule
 \end{tabular}
-\captionof{table}{Tabella con le misure da noi effettuate, riportiamo a sinistra la descrizione in breve del tipo di fenomeno studiato, nella tabella centrale la media dei valori dei periodi ottenuti facendo la distanza temporale fra due massimi consecutivi e, infine, la pulsazione $\omega_0$ calcolata nei vari casi: come possiamo vedere l'errore che abbiamo sulle oscillazioni in controfase e nelle oscillazioni con smorzatore dovuto al fatto che abbiamo effettuato delle misure in cui abbiamo fatto partire i due pendoli non allo stesso momento e questo stacco fra i due non è trascurabile mentre nelle oscillazioni con smorzatore il motivo probabilmente è dovuto al fatto che la pallina è stata influenzata troppo dagli attriti del fluido alle estremità del bordo}
+\label{tab:misurazioni}
+\caption{Tabella con le misure da noi effettuate, riportiamo a sinistra la descrizione in breve del tipo di fenomeno studiato, nella tabella centrale la media dei valori dei periodi ottenuti facendo la distanza temporale fra due massimi consecutivi e, infine, la pulsazione $\omega_0$ calcolata nei vari casi: come possiamo vedere l'errore che abbiamo sulle oscillazioni in controfase e nelle oscillazioni con smorzatore dovuto al fatto che abbiamo effettuato delle misure in cui abbiamo fatto partire i due pendoli non allo stesso momento e questo stacco fra i due non è trascurabile mentre nelle oscillazioni con smorzatore il motivo probabilmente è dovuto al fatto che la pallina è stata influenzata troppo dagli attriti del fluido alle estremità del bordo}
 \end{table}
 
 \noindent Per calcolare la pulsazione $\omega_0$, sempre riportata nella tabella di fianco, abbiamo utilizzato la seguente relazione:
@@ -155,6 +192,16 @@ dove $T$ è la media dei periodi. Come errore, abbiamo considerato il fatto che 
 \begin{equation*}
 	\frac{\sigma_{\omega_0}}{\omega_0} = \frac{\sigma_{T}}{T} \, \implies \, \sigma_{\omega_0} = \frac{\sigma_T}{T} \omega_0 = \frac{\sigma_T}{T} \frac{2\pi}{T} = \frac{2\pi \sigma_T}{T^2}
 \end{equation*}
+Si riportano i risultati delle nostre misure nella tabella~\ref{tab:misurazioni}. \\ 
+Confrontando il valore da noi ottenuto nell'oscillazione senza smorzatore con il valore aspettato, possiamo stimare che distano in sigma
+\begin{equation*}
+	\frac{4.56 - 4.44}{\sqrt{0.02^2 + 0.01^2}} \approx 5.4
+\end{equation*}
+Da cosa può essere dovuta questa enorme discrepanza fra il valore teorico e quello misurato? Probabilmente quando si lasciava andare il pendolo non siamo stati molto attenti a non imprimere al pendolo una velocità anche in altre direzioni e/o l'acqua non poteva essere \emph{approssimato} uno smorzatore \emph{ideale}: nelle ipotesi dello smorzatore armonico ideale, si suppone che le forze agenti sul punto materiale siano della forma
+$$
+m\ddot{x} = -kx - \beta \dot{x}
+$$
+ovvero si suppone che la forza di attrito viscoso dipenda esclusivamente dalla velocità del punto materiale. In questo caso, può anche contribuire il fatto che le velocità siano molto basse e, all'ordine dominante, potrebbero influire maggiormente fattori come la forma del corpo. In assenza dello smorzatore, infatti, abbiamo la discrepanza maggiore con il modello teorico, ma ponendo lo smorzatore (di forma sferico) si osserva (ad occhio) che si ottiene un valore compatibile entro le barre di errore poiché gli effetti delle forze di attrito viscoso, in presenza dello smorzatore, potevano essere \emph{approssimabili} come dipendenti dalla velocità. \\
 Abbiamo anche stimato il tempo di decadimento dell'ampiezza del moto con smorzatore tramite il metodo del parametro libero tramite fit: abbiamo usato come modello teorico per le nostre misure il seguente
 \begin{equation}
 	x(t) = \theta_0 (0)e^{-\frac{t}{\tau}}\cos{\left( \omega t + \phi \right) }
@@ -164,9 +211,7 @@ Sebbene le ampiezze massima dell'oscillazione variava, in funzione del tempo, ne
 $$
 	\theta_0 (t) = \theta_0 (0) e^{-\frac{t}{\tau}}
 $$
-abbiamo deciso di utilizzare il modello descritto dalla \ref{eq:modello_teorico} siccome non riuscivamo a stimare qual era l'errore che si commetteva considerando come massimo una misurazione da noi compiuta oppure prendendo come massimo una misurazione \emph{virtuale}, ovvero un massimo aggiunto dall'operazione di smoothing della curva. In questa maniera, ad ogni punto potevamo assegnare come incertezza quella strumentale, pari a $1 \, u.a$ (si poteva anche pensare che lo strumento, in quanto digitale, seguisse una distribuzione uniforme, dunque l'errore sarebbe pari a $\frac{1}{\sqrt{12}}$ ma abbiamo ritenuto che l'errore effettivo, che già è piccolo, fosse sottostimato di troppo oltre al fatto che andremo a sottostimare la risoluzione strumentale dello strumento utilizzato). \\
-Riportiamo il grafico del fit e il grafico dei residui nella prossima pagina.
-
+abbiamo deciso di utilizzare il modello descritto dalla \ref{eq:modello_teorico} siccome non riuscivamo a stimare qual era l'errore che si commetteva considerando come massimo una misurazione da noi compiuta oppure prendendo come massimo una misurazione \emph{virtuale}, ovvero un massimo aggiunto dall'operazione di smoothing della curva. In questa maniera, ad ogni punto potevamo assegnare come incertezza quella strumentale, pari a $1 \, u.a$ (si poteva anche pensare che lo strumento, in quanto digitale, seguisse una distribuzione uniforme, dunque l'errore sarebbe pari a $\frac{1}{\sqrt{12}}$ ma abbiamo ritenuto che l'errore effettivo, che già è piccolo, fosse sottostimato di troppo oltre al fatto che andremo a sottostimare la risoluzione strumentale dello strumento utilizzato). 
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.48\textwidth}
@@ -179,30 +224,58 @@ Riportiamo il grafico del fit e il grafico dei residui nella prossima pagina.
 	\captionof{figure}{Fit e grafico dei residui del nostro modello. Da come si dispongono gli errori, che si distribuiscono intorno allo zero con una sorta di \emph{simmetria}, non si può che evincere che ci sono dei grossi errori sistematici: probabilmente, gli abbiamo fatto compiere delle oscillazioni troppo grandi e sul bordo della vasca l'attrito esercitato dal fluido era maggiore oppure ci sono altri fattori sistematici a noi sconosciuti.}
 \end{figure}
 
-Il $\chi^2$ ha un valore \emph{gargantuesco}, infatti risulta essere
+\noindent Effettuando il test del $\chi^2$, si osserva che il suo valore è \emph{gargantuesco}, infatti risulta essere
 $$
 	\chi^2 \approx 6423339
 $$
-da cui potremmo evincere la presenza di errori sistematici. A conferma di ciò si può guardare il grafico dei residui che dà una prova più inconfutabile della presenza di errori sistematici: i residui infatti si dispongono come se fossero una funzione sinusoidale e la presenza di questo \emph{pattern} fa pensare alla presenza di errori di natura non statistica, come si può vedere dallo zoom riportato qua sotto del grafico dei residui.
+da cui si potrebbe pensare che agiscano degli errori sistematici: ipotesi avvalorata dal fatto che se effettuiamo uno zoom nel grafico dei residui, si osserva che questi infatti si dispongono come se fossero una funzione sinusoidale e la presenza di questo \emph{pattern} fa pensare alla presenza di errori di natura non statistica, come si può vedere nell'immagine~\ref{fig:residui}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
 	\includegraphics[width=0.5\textwidth, height=200pt]{Zoom_residui.png}
-	\captionof{figure}{Zoom degli errori relativi. Come si può osservare i residui si dispongono come se fossero una funzione sinusoidale, si può dedurre che molto probabilmente nelle nostre misure intervengono degli errori di natura non statistica che sono dovuti al nostro modo di utilizzare l'apparato e/o gli strumenti di misura}
-\end{wrapfigure}
+	\caption{Zoom degli errori relativi. Come si può osservare i residui si dispongono come se fossero una funzione sinusoidale, si può dedurre che molto probabilmente nelle nostre misure intervengono degli errori di natura non statistica che sono dovuti al nostro modo di utilizzare l'apparato e/o gli strumenti di misura}
+	\label{fig:residui}
+\end{figure}
 
 Nonostante ciò, le stime effettuate dal fit sono ragionevoli, infatti risulta che il tempo di decadimento del nostro moto risulta essere pari a
 \begin{align}
 	&\hat{\tau} = (18.3 \pm 0.1) \, \si{\second}
 \end{align}
-inoltre, il valore di $\omega$ delle pulsazioni, stimata dal fit, risulta essere pari
-\begin{align}
-	&\hat{\omega} = (4.4308 \pm 0.0004) \, \si{\second}
-\end{align}
-che, in sigma, rispetto all'altro valore dista
-\begin{align}
-	\frac{|4.444 - 4.308|}{\sqrt{\sigma^2_{\omega}+ \sigma^2_{\omega_c}}} \approx 33
-\end{align}
-Da questa vicenda possiamo solamente evincere la solita morale che però non riusciamo mai a mettere in atto (perché siamo lenti nella fase di programmazione): ovvero che quando siamo in laboratorio dovremmo subito effettuare i fit delle nostre misure con i relativi errori per vedere quanto sono \emph{sballate} per rifarle eventualmente. Nonostante ciò i parametri non sono troppo irragionevoli rispetto al valore teorico, tuttavia gli errori sono sicuramente sottostimati visto che dista veramente troppo dal valore da noi atteso. \\
-Passiamo adesso alla misura dei battimenti. Anche in questo caso abbiamo \emph{riciclato} parte del programma precedente poiché dovevamo trovare i picchi dei nostri dati per individuare la pulsazione portante e la pulsazione modulante: per la prima abbiamo operato come sopra, mentre per l'altra pulsazione abbiamo misurato tramite lo strumento zoom di Matplotlib i picchi dei battimenti.
+e, osservando il grafico, si osserva che l'ampiezza del grafico si riduce di un fattore pari ad $\frac{1}{e}$ dopo circa $17 \si{\second}$, dunque non è completamente irragionevole. Inoltre, il valore di $\omega$ delle pulsazioni, stimato dal fit, risulta essere pari
+\begin{align*}
+	&\hat{\omega} = (4.4308 \pm 0.0004) \, \si{\radian\per\second}
+\end{align*}
+che, in sigma, rispetto al valore delle pulsazioni in fase dista
+\begin{align*}
+	\frac{|4.44 - 4.4308|}{\sqrt{0.02^2 + 0.0004^2}} \approx 0.5
+\end{align*}
+e, rispetto alla pulsazione in contrafase, si ha che
+\begin{align*}
+	\frac{4.46 - 4.4308}{\sqrt{0.05^2 + 0.0004^2}} \approx 0.6
+\end{align*}
+quindi è compatibile con entrambe le pulsazioni, come era lecito aspettarsi siccome la costante elastica della molla era \emph{piccola} rispetto alle grandezze in gioco. \\
+Da questa vicenda possiamo solamente evincere la solita morale che però non riusciamo mai a mettere in atto (perché siamo lenti nella fase di programmazione): ovvero che quando siamo in laboratorio dovremmo subito effettuare i fit delle nostre misure con i relativi errori per vedere quanto sono \emph{sballate} e per, eventualmente, rifarle. \\
+Nonostante ciò i parametri non siano troppo irragionevoli rispetto al valore teorico, sebbene il test del $\chi^2$ e dei residui fa ipotizzare che gli errori siano sottostimati (o, più in generale dei fattori non statistici), visto che le misurazioni si discostano veramente troppo dal valore da noi atteso. \\
+Passiamo adesso alla misura dei battimenti. Anche in questo caso abbiamo \emph{riciclato} parte del programma precedente poiché dovevamo trovare i picchi dei nostri dati (dunque valgono le medesime considerazioni fatte prima sugli errori) per individuare la pulsazione portante e la pulsazione modulante: per la prima abbiamo operato come sopra, mentre per l'altra pulsazione abbiamo misurato tramite lo strumento zoom di Matplotlib i picchi dei battimenti.
 Tramite questa analisi siamo riusciti a misurare la pulsazione dell'oscillazione portante e modulante, che risulta essere rispettivamente pari a
+\begin{align*}
+&\omega_{port} = (4.60 \pm 0.05) \, \si{\radian\per\second} \\
+&\omega_{mod} = (0.1772 \pm 0.0003) \, \si{\radian\per\second}
+\end{align*}
+e si osserva che la pulsazione portante non è compatibile, nelle barre di errore, con la misura delle oscillazioni in fase e in controfase, siccome
+\begin{align*}
+	\frac{4.60 - 4.46}{\sqrt{0.05^2 + 0.05^2}} \approx 2.0
+\end{align*}
+e
+\begin{align*}
+	\frac{4.60 - 4.43}{\sqrt{0.05^2 + 0.004^2}} \approx 3.4
+\end{align*}
+dunque dista rispettivamente $2.0\sigma$ e $3.4\sigma$ dalla pulsazione in fase e in controfase. Coerentemente però con quanto aspettato dalla teoria, la pulsazione modulante è molto più piccola di quella in fase e quella in controfase.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.50]{battimenti.pdf}
+	\caption{Fenomeno dei battimenti ottenuto tramite l'accoppiamento di due pendoli dove uno viene fatto partire in moto e l'altro tenuto fermo}
+\end{figure}
+\section{Conclusioni}
+Sebbene l'esperienza non possa considerarsi un successo, siccome ci sono delle evidenti discrepanze fra i valori calcolati tramite le misure sperimentali e i valori teorici del nostro modello, possiamo sicuramente dire che questa esperienza è stata educativa siccome ci ha spinto ad utilizzare delle nuove librerie di \texttt{scipy} per analizzare i nostri dati.
 \end{document}
